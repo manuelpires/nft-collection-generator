@@ -111,7 +111,7 @@ const getImageFromTraits = async (traits) => {
 
 const printStats = (tokens) => {
   console.log(
-    "SUCCESS!",
+    "\nSUCCESS!",
     `\n- images path: ${DEFAULT_IMAGES_PATH}`,
     `\n- metadata path: ${DEFAULT_METADATA_PATH}`,
     `\n\nTOTAL NUMBER OF TOKENS: ${tokens.length}`
@@ -135,7 +135,9 @@ const printStats = (tokens) => {
   });
 };
 
+/** MAIN SCRIPT **/
 (async () => {
+  console.log("Generating unique tokens files. Please wait...");
   try {
     const tokens = createUniqueTokens();
     await generateTokensFiles(tokens);
