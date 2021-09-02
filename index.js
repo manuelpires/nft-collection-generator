@@ -17,13 +17,12 @@ const {
 } = require("./config");
 
 const uniqueTraits = new Set();
-const accWeightsByIndex = traitsList.reduce((acc, { options }, index) => {
-  acc[index] = options.reduce(
-    (_acc, { weight }, i) => _acc.concat(weight + (_acc[i - 1] || 0)),
+const accWeightsByIndex = traitsList.map(({ options }) =>
+  options.reduce(
+    (acc, { weight }, i) => acc.concat(weight + (acc[i - 1] || 0)),
     []
-  );
-  return acc;
-}, []);
+  )
+);
 
 const createUniqueTokens = () =>
   Array.from(Array(TOTAL_TOKENS)).map((_, i) => ({
