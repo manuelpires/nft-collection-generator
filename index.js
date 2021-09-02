@@ -11,6 +11,7 @@ const {
   DEFAULT_METADATA_PATH,
   IMAGES_BASE_URL,
   TOKEN_NAME_PREFIX,
+  TOKEN_DESCRIPTION,
   TOTAL_TOKENS,
   ORDERED_TRAITS_LIST: traitsList,
 } = require("./config");
@@ -87,6 +88,7 @@ const getMetadataFromToken = ({ tokenId, traits }) => {
   const metadata = {
     tokenId,
     name: `${TOKEN_NAME_PREFIX}${tokenId}`,
+    ...TOKEN_DESCRIPTION && { description: TOKEN_DESCRIPTION },
     image: `${IMAGES_BASE_URL}${tokenId}`,
     attributes: traits.map(({ display, type, value }) => ({
       ...(display && { display_type: display }),

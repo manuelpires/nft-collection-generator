@@ -4,6 +4,7 @@ const {
   DEFAULT_METADATA_PATH,
   IMAGES_BASE_URL,
   TOKEN_NAME_PREFIX,
+  TOKEN_DESCRIPTION,
   TOTAL_TOKENS,
   ORDERED_TRAITS_LIST: traitsList,
 } = require("./config");
@@ -27,6 +28,12 @@ describe("Constants validation:", () => {
 
   it("TOKEN_NAME_PREFIX should be a string", () => {
     expect(TOKEN_NAME_PREFIX).to.be.a("string");
+  });
+
+  it("TOKEN_DESCRIPTION (if present) should be a string", () => {
+    if (TOKEN_DESCRIPTION) {
+      expect(TOKEN_DESCRIPTION).to.be.a("string");
+    }
   });
 
   it("TOTAL_TOKENS should be an integer of at least 1", () => {
