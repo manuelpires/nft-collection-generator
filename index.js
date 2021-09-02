@@ -136,7 +136,16 @@ const printStats = (tokens) => {
 };
 
 (async () => {
-  const tokens = createUniqueTokens();
-  await generateTokensFiles(tokens);
-  printStats(tokens);
+  try {
+    const tokens = createUniqueTokens();
+    await generateTokensFiles(tokens);
+    printStats(tokens);
+  } catch (err) {
+    if (err instanceof RangeError) {
+      console.log(
+        `ERORR: it was impossible to create ${TOTAL_TOKENS} unique tokens with the current configuration.`,
+        "\nTo fix: try lowering the value of TOTAL_TOKENS or update ORDERED_TRAITS_LIST in the config."
+      );
+    } else throw err;
+  }
 })();
