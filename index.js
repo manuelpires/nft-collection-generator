@@ -110,10 +110,12 @@ const getImageFromTraits = async (traits) => {
 };
 
 const printStats = (tokens) => {
-  console.log("SUCCESS!");
-  console.log(`- images path: ${DEFAULT_IMAGES_PATH}`);
-  console.log(`- metadata path: ${DEFAULT_METADATA_PATH}`);
-  console.log(`\nTOTAL NUMBER OF TOKENS: ${tokens.length}`);
+  console.log(
+    "SUCCESS!",
+    `\n- images path: ${DEFAULT_IMAGES_PATH}`,
+    `\n- metadata path: ${DEFAULT_METADATA_PATH}`,
+    `\n\nTOTAL NUMBER OF TOKENS: ${tokens.length}`
+  );
   traitsList.forEach(({ type, options }) => {
     console.log(`\nTRAIT TYPE: ${type || "<generic-type>"}`);
     options.forEach(({ value }) => {
