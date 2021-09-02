@@ -1,0 +1,19 @@
+{
+  "name": "nft-collection-generator",
+  "version": "1.0.0",
+  "description": "Generates images and metadata for a collection of NFTs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelpires/nft-collection-generator.git"
+  },
+  "author": "Manuel Pires",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manuelpires/nft-collection-generator/issues"
+  },
+  "homepage": "https://github.com/manuelpires/nft-collection-generator#readme"
+}
