@@ -1,4 +1,4 @@
-const hash = require("object-hash");
+const crypto = require("crypto");
 const mergeImages = require("merge-images");
 const { Image, Canvas } = require("canvas");
 const {
@@ -16,7 +16,7 @@ const {
   ORDERED_TRAITS_LIST: traitsList,
 } = require("./config");
 
-const uniqueTraits = new Set();
+const uniqueCombinationsHashes = new Set();
 const accWeightsByIndex = traitsList.map(({ options }) =>
   options.reduce(
     (acc, { weight }, i) => acc.concat(weight + (acc[i - 1] || 0)),
@@ -24,11 +24,12 @@ const accWeightsByIndex = traitsList.map(({ options }) =>
   )
 );
 
-const createUniqueTokens = () =>
-  Array.from(Array(TOTAL_TOKENS)).map((_, i) => ({
+const createUniqueTokens = () => {
+  return Array.from(Array(TOTAL_TOKENS)).map((_, i) => ({
     tokenId: i,
     traits: createUniqueTraitsCombination(),
   }));
+};
 
 const createUniqueTraitsCombination = () => {
   const traits = [];
@@ -42,12 +43,11 @@ const createUniqueTraitsCombination = () => {
       });
     }
   });
-
-  const hashedTraits = hash(traits);
-  if (uniqueTraits.has(hashedTraits)) {
+  const traitsHash = hash(JSON.stringify(traits));
+  if (uniqueCombinationsHashes.has(traitsHash)) {
     return createUniqueTraitsCombination();
   }
-  uniqueTraits.add(hashedTraits);
+  uniqueCombinationsHashes.add(traitsHash);
   return traits;
 };
 
@@ -56,6 +56,8 @@ const getRandomWeightedOption = (options, accWeights) => {
   const index = accWeights.findIndex((accWeight) => rand < accWeight);
   return options[index];
 };
+
+const hash = (msg) => crypto.createHash("sha256").update(msg).digest("hex");
 
 const generateTokensFiles = async (tokens) => {
   directoryGuard(DEFAULT_METADATA_PATH);
