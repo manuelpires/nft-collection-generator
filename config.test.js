@@ -143,4 +143,24 @@ describe("Traits list validation:", () => {
         })
     );
   });
+
+  it("each option's condition (if present) should be a string", () => {
+    traitsList.forEach(({ options }) =>
+      options.forEach(
+        ({ condition }) => condition && expect(condition).to.be.a("string")
+      )
+    );
+  });
+
+  it("each condition should match an option value from a previous trait", () => {
+    let allPreviousValues = [];
+    traitsList.forEach(({ options }) => {
+      const traitValues = [];
+      options.forEach(({ condition, value }) => {
+        if (condition) expect(allPreviousValues).to.include(condition);
+        if (value) traitValues.push(value);
+      });
+      allPreviousValues = allPreviousValues.concat(traitValues);
+    });
+  });
 });

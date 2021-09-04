@@ -17,12 +17,6 @@ const {
 } = require("./config");
 
 const uniqueCombinationsHashes = new Set();
-const accWeightsByIndex = traitsList.map(({ options }) =>
-  options.reduce(
-    (acc, { weight }, i) => acc.concat(weight + (acc[i - 1] || 0)),
-    []
-  )
-);
 
 const createUniqueTokens = () => {
   return Array.from(Array(TOTAL_TOKENS)).map((_, i) => ({
@@ -33,8 +27,14 @@ const createUniqueTokens = () => {
 
 const createUniqueTraitsCombination = () => {
   const traits = [];
-  traitsList.forEach(({ display, type, options }, i) => {
-    const option = getRandomWeightedOption(options, accWeightsByIndex[i]);
+  traitsList.forEach(({ display, type, options }) => {
+    const filteredOptions = options.filter(({ condition }) => {
+      if (condition) {
+        return traits.some(({ value }) => value === condition);
+      }
+      return true;
+    });
+    const option = getRandomWeightedOption(filteredOptions);
     if (option.value) {
       traits.push({
         ...(type && { type }),
@@ -43,6 +43,7 @@ const createUniqueTraitsCombination = () => {
       });
     }
   });
+
   const traitsHash = hash(JSON.stringify(traits));
   if (uniqueCombinationsHashes.has(traitsHash)) {
     return createUniqueTraitsCombination();
@@ -51,7 +52,11 @@ const createUniqueTraitsCombination = () => {
   return traits;
 };
 
-const getRandomWeightedOption = (options, accWeights) => {
+const getRandomWeightedOption = (options) => {
+  const accWeights = options.reduce(
+    (acc, { weight }, i) => acc.concat(weight + (acc[i - 1] || 0)),
+    []
+  );
   const rand = Math.random() * accWeights[accWeights.length - 1];
   const index = accWeights.findIndex((accWeight) => rand < accWeight);
   return options[index];
