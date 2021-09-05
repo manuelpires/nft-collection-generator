@@ -88,7 +88,7 @@ config.ORDERED_TRAITS_LIST = [
         weight: 1,
       },
       {
-        condition: "Coral",
+        condition: ["Coral", "Mint"],
         image: "./traits/triangle/teal.png",
         value: "Teal",
         weight: 1,

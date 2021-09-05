@@ -38,7 +38,7 @@ describe("Constants validation:", () => {
 
   it("TOTAL_TOKENS should be an integer of at least 1", () => {
     expect(TOTAL_TOKENS % 1).to.equal(0);
-    expect(TOTAL_TOKENS).to.be.an("number").of.at.least(1);
+    expect(TOTAL_TOKENS).to.be.a("number").of.at.least(1);
   });
 });
 
@@ -82,7 +82,7 @@ describe("Traits list validation:", () => {
     traitsList.forEach(({ options }) =>
       options.forEach(({ weight }) => {
         expect(weight % 1).to.equal(0);
-        expect(weight).to.be.an("number").of.at.least(1);
+        expect(weight).to.be.a("number").of.at.least(1);
       })
     );
   });
@@ -144,20 +144,27 @@ describe("Traits list validation:", () => {
     );
   });
 
-  it("each option's condition (if present) should be a string", () => {
+  it("each option's condition (if present) should be an array of strings", () => {
     traitsList.forEach(({ options }) =>
-      options.forEach(
-        ({ condition }) => condition && expect(condition).to.be.a("string")
-      )
+      options.forEach(({ condition }) => {
+        if (condition) {
+          expect(condition).to.be.an("array");
+          condition.forEach((item) => expect(item).to.be.an("string"));
+        }
+      })
     );
   });
 
-  it("each condition should match an option value from a previous trait", () => {
+  it("each condition item should match an option value from a previous trait", () => {
     let allPreviousValues = [];
     traitsList.forEach(({ options }) => {
       const traitValues = [];
       options.forEach(({ condition, value }) => {
-        if (condition) expect(allPreviousValues).to.include(condition);
+        if (condition) {
+          condition.forEach((item) =>
+            expect(allPreviousValues).to.include(item)
+          );
+        }
         if (value) traitValues.push(value);
       });
       allPreviousValues = allPreviousValues.concat(traitValues);

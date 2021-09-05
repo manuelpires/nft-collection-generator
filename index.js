@@ -29,8 +29,8 @@ const createUniqueTraitsCombination = () => {
   const traits = [];
   traitsList.forEach(({ display, type, options }) => {
     const filteredOptions = options.filter(({ condition }) => {
-      if (condition) {
-        return traits.some(({ value }) => value === condition);
+      if (condition && condition.length > 0) {
+        return traits.some(({ value }) => condition.includes(value));
       }
       return true;
     });
