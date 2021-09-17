@@ -67,12 +67,10 @@ const hash = (msg) => crypto.createHash("sha256").update(msg).digest("hex");
 const generateTokensFiles = async (tokens) => {
   directoryGuard(DEFAULT_METADATA_PATH);
   directoryGuard(DEFAULT_IMAGES_PATH);
-  await Promise.all(
-    tokens.map(async (token) => {
-      await generateTokenMetadata(token);
-      await generateTokenImage(token);
-    })
-  );
+  for (let token of tokens) {
+    await generateTokenMetadata(token);
+    await generateTokenImage(token);
+  }
 };
 
 const directoryGuard = (directory) => {
