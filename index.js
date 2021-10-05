@@ -28,13 +28,16 @@ const createUniqueTokens = () => {
 const createUniqueTraitsCombination = () => {
   const traits = [];
   traitsList.forEach(({ display, type, options }) => {
+    // Filter only options that fulfill their condition (if they have)
     const filteredOptions = options.filter(({ condition }) => {
       if (condition && condition.length > 0) {
         return traits.some(({ value }) => condition.includes(value));
       }
       return true;
     });
+    // Randomly select a trait option
     const option = getRandomWeightedOption(filteredOptions);
+    // Push selected trait option (if it has a defined value)
     if (option.value) {
       traits.push({
         ...(type && { type }),
@@ -45,18 +48,23 @@ const createUniqueTraitsCombination = () => {
   });
 
   const traitsHash = hash(JSON.stringify(traits));
+  // Use recursion if the traits combination was already used
   if (uniqueCombinationsHashes.has(traitsHash)) {
     return createUniqueTraitsCombination();
   }
+  // Else save the hash and return the traits combination
   uniqueCombinationsHashes.add(traitsHash);
   return traits;
 };
 
 const getRandomWeightedOption = (options) => {
+  // Transform weights array into an accumulated weights array
+  // for instance: [20, 30, 50] --> [20, 50, 100]
   const accWeights = options.reduce(
     (acc, { weight }, i) => acc.concat(weight + (acc[i - 1] || 0)),
     []
   );
+  // Select one of the options, based on a rand number
   const rand = Math.random() * accWeights[accWeights.length - 1];
   const index = accWeights.findIndex((accWeight) => rand < accWeight);
   return options[index];
@@ -83,11 +91,6 @@ const generateTokenMetadata = async ({ tokenId, traits }) => {
   await writeFile(`${DEFAULT_METADATA_PATH}${tokenId}`, tokenMetadata);
 };
 
-const generateTokenImage = async ({ tokenId, traits }) => {
-  const tokenImage = await getImageFromTraits(traits);
-  await writeFile(`${DEFAULT_IMAGES_PATH}${tokenId}.png`, tokenImage);
-};
-
 const getMetadataFromToken = ({ tokenId, traits }) => {
   const metadata = {
     tokenId,
@@ -101,6 +104,11 @@ const getMetadataFromToken = ({ tokenId, traits }) => {
     })),
   };
   return JSON.stringify(metadata, null, 2);
+};
+
+const generateTokenImage = async ({ tokenId, traits }) => {
+  const tokenImage = await getImageFromTraits(traits);
+  await writeFile(`${DEFAULT_IMAGES_PATH}${tokenId}.png`, tokenImage);
 };
 
 const getImageFromTraits = async (traits) => {
