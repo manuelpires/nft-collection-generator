@@ -96,7 +96,7 @@ const getMetadataFromToken = ({ tokenId, traits }) => {
     tokenId,
     name: `${TOKEN_NAME_PREFIX}${tokenId}`,
     ...(TOKEN_DESCRIPTION && { description: TOKEN_DESCRIPTION }),
-    image: `${IMAGES_BASE_URL}${tokenId}`,
+    image: `${IMAGES_BASE_URL}${tokenId}.png`,
     attributes: traits.map(({ display, type, value }) => ({
       ...(display && { display_type: display }),
       ...(type && { trait_type: type }),
