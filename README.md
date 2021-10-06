@@ -108,6 +108,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Manuel Pires - manuelpiresok@gmail.com
+Manuel Pires - [manuelpires.eth](https://etherscan.io/address/0xa592b977b98697ed0269b645af1d09289fae8948) - manuelpiresok@gmail.com
 
 Project Link: [https://github.com/manuelpires/nft-collection-generator](https://github.com/manuelpires/nft-collection-generator)
