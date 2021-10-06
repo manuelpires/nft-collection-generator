@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const {
   DEFAULT_IMAGES_PATH,
   DEFAULT_METADATA_PATH,
-  IMAGES_BASE_URL,
+  IMAGES_BASE_URI,
   TOKEN_NAME_PREFIX,
   TOKEN_DESCRIPTION,
   TOTAL_TOKENS,
@@ -18,12 +18,12 @@ describe("Constants validation:", () => {
     expect(DEFAULT_METADATA_PATH).to.be.a("string");
   });
 
-  it("IMAGES_BASE_URL should be a valid URL string", () => {
-    expect(IMAGES_BASE_URL).to.be.a("string");
+  it("IMAGES_BASE_URI should be a valid URI string", () => {
+    expect(IMAGES_BASE_URI).to.be.a("string");
     const regex = new RegExp(
       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
     );
-    expect(regex.test(IMAGES_BASE_URL)).to.be.true;
+    expect(regex.test(IMAGES_BASE_URI)).to.be.true;
   });
 
   it("TOKEN_NAME_PREFIX should be a string", () => {

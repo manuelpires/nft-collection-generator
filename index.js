@@ -9,7 +9,7 @@ const {
 const {
   DEFAULT_IMAGES_PATH,
   DEFAULT_METADATA_PATH,
-  IMAGES_BASE_URL,
+  IMAGES_BASE_URI,
   TOKEN_NAME_PREFIX,
   TOKEN_DESCRIPTION,
   TOTAL_TOKENS,
@@ -96,7 +96,7 @@ const getMetadataFromToken = ({ tokenId, traits }) => {
     tokenId,
     name: `${TOKEN_NAME_PREFIX}${tokenId}`,
     ...(TOKEN_DESCRIPTION && { description: TOKEN_DESCRIPTION }),
-    image: `${IMAGES_BASE_URL}${tokenId}.png`,
+    image: `${IMAGES_BASE_URI}${tokenId}.png`,
     attributes: traits.map(({ display, type, value }) => ({
       ...(display && { display_type: display }),
       ...(type && { trait_type: type }),
