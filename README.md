@@ -43,7 +43,7 @@ This will only test if the current configuration is correct or not.
 Run the project with the current configuration
 
 ```sh
-npm start
+npm run build
 ```
 
 This will execute the main script. If successful, it will:
