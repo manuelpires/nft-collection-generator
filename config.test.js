@@ -144,30 +144,65 @@ describe("Traits list validation:", () => {
     );
   });
 
-  it("each option's condition (if present) should be an array of strings", () => {
+  it("each option's allowed condition (if present) should be an array of strings", () => {
     traitsList.forEach(({ options }) =>
-      options.forEach(({ condition }) => {
-        if (condition) {
-          expect(condition).to.be.an("array");
-          condition.forEach((item) => expect(item).to.be.an("string"));
+      options.forEach(({ allowed }) => {
+        if (allowed) {
+          expect(allowed).to.be.an("array");
+          allowed.forEach((item) => expect(item).to.be.an("string"));
         }
       })
     );
   });
 
-  it("each condition item should match an option value from a previous trait", () => {
+  it("each allowed condition item should match an option value from a previous trait", () => {
     let allPreviousValues = [];
     traitsList.forEach(({ options }) => {
       const traitValues = [];
-      options.forEach(({ condition, value }) => {
-        if (condition) {
-          condition.forEach((item) =>
+      options.forEach(({ allowed, value }) => {
+        if (allowed) {
+          allowed.forEach((item) => expect(allPreviousValues).to.include(item));
+        }
+        if (value) traitValues.push(value);
+      });
+      allPreviousValues = allPreviousValues.concat(traitValues);
+    });
+  });
+
+  it("each option's forbidden condition (if present) should be an array of strings", () => {
+    traitsList.forEach(({ options }) =>
+      options.forEach(({ forbidden }) => {
+        if (forbidden) {
+          expect(forbidden).to.be.an("array");
+          forbidden.forEach((item) => expect(item).to.be.an("string"));
+        }
+      })
+    );
+  });
+
+  it("each forbidden condition item should match an option value from a previous trait", () => {
+    let allPreviousValues = [];
+    traitsList.forEach(({ options }) => {
+      const traitValues = [];
+      options.forEach(({ forbidden, value }) => {
+        if (forbidden) {
+          forbidden.forEach((item) =>
             expect(allPreviousValues).to.include(item)
           );
         }
         if (value) traitValues.push(value);
       });
       allPreviousValues = allPreviousValues.concat(traitValues);
+    });
+  });
+
+  it("no allowed condition item should be equal to a forbidden condition item in the same option", () => {
+    traitsList.forEach(({ options }) => {
+      options.forEach(({ allowed, forbidden }) => {
+        if (allowed && forbidden) {
+          forbidden.forEach((item) => expect(allowed).to.not.include(item));
+        }
+      });
     });
   });
 });

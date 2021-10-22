@@ -31,13 +31,8 @@ const createUniqueTokens = () => {
 const createUniqueTraitsCombination = () => {
   const traits = [];
   traitsList.forEach(({ display, type, options }) => {
-    // Filter only options that fulfill their condition (if they have)
-    const filteredOptions = options.filter(({ condition }) => {
-      if (condition && condition.length > 0) {
-        return traits.some(({ value }) => condition.includes(value));
-      }
-      return true;
-    });
+    // Use only options that fulfill their allowed/forbidden conditions (if they have)
+    const filteredOptions = filterOptionsByConditions(options, traits);
     // Randomly select a trait option
     const option = getRandomWeightedOption(filteredOptions);
     // Push selected trait option (if it has a defined value)
@@ -58,6 +53,26 @@ const createUniqueTraitsCombination = () => {
   // Else save the hash and return the traits combination
   uniqueCombinationsHashes.add(traitsHash);
   return traits;
+};
+
+const filterOptionsByConditions = (options, traits) => {
+  return options.filter(({ allowed, forbidden }) => {
+    if (
+      allowed &&
+      allowed.length > 0 &&
+      !traits.some(({ value }) => allowed.includes(value))
+    ) {
+      return false;
+    }
+    if (
+      forbidden &&
+      forbidden.length > 0 &&
+      traits.some(({ value }) => forbidden.includes(value))
+    ) {
+      return false;
+    }
+    return true;
+  });
 };
 
 const getRandomWeightedOption = (options) => {

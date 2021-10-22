@@ -85,12 +85,13 @@ config.ORDERED_TRAITS_LIST = [
         weight: 1,
       },
       {
+        allowed: ["Coral", "Mint"],
         image: "./traits/triangle/orchid.png",
         value: "Orchid",
         weight: 1,
       },
       {
-        condition: ["Coral", "Mint"],
+        forbidden: ["Robin"],
         image: "./traits/triangle/teal.png",
         value: "Teal",
         weight: 1,

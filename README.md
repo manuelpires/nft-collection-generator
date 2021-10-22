@@ -81,7 +81,8 @@ Each _trait_ has the following structure:
   display?: string;
   type?: string;
   options: {
-    condition?: string[];
+    allowed?: string[];
+    forbidden?: string[];
     image?: string;
     value?: string | number;
     weight: number;
@@ -93,8 +94,8 @@ Before modifying the _traits_ list, please go through the next important conside
 
 - For every _trait_ in the list, each generated token will get **one** randomly selected _option_ (_value_ & _image_) from the _options_ list. Except if the randomly selected _option_ turns out to have a non-existent _value_, in which case the token won't get **anything** from that specific _trait_.
 - The order of the list **is important!** It will define the order in which the images should be merged on top of each other to create the final token image. Tipically, the background _trait_ should be the first in the array.
-- The random selection of the _option_ is based on its _weight_ and its optional _condition_. The _weight_ of an _option_ is **relative** to the _weights_ of the other items in the same _options_ array, and it should be an integer of at least 1. So if you put a _weight_ of 10 in an _option_, it should have 10 more times chances to be selected that an _option_ in the same array that has a _weight_ equal to 1.
-- The optional _condition_ array should include one or more strings that match _option values_ of a previous _trait_. When used, it will make this _option_ **only** available for tokens that have **at least** one of those string _values_ previously selected. The _option_ will be automatically discarded for tokens that didn't receive **any** of the string _values_ present in the _condition_ array. For reference, look at the _condition_ array used as an example in the `config.js` file. In that case, a "Teal" triangle would only be available for tokens with "Coral" **or** "Mint" backgrounds.
+- The random selection of the _option_ is based on its _weight_ and its optional _allowed/forbidden_ conditions. The _weight_ of an _option_ is **relative** to the _weights_ of the other items in the same _options_ array, and it should be an integer of at least 1. So if you put a _weight_ of 10 in an _option_, it should have 10 more times chances to be selected that an _option_ in the same array that has a _weight_ equal to 1.
+- The optional _allowed/forbidden_ arrays should include one or more strings that match _option values_ of previous _traits_. When used, it will make this _option_ **only** allowed/forbidden for tokens that have **at least** one of those string _values_ previously selected. For reference, look at the _allowed_ and _forbidden_ arrays used as example in the `config.js` file. In this case an "Orchid" triangle would only be available for tokens with "Coral" **or** "Mint" backgrounds; and also a "Teal" triangle will **not** be available for tokens with "Robin" background.
 - Each defined _type_ inside a _trait_ should be unique.
 - If you leave a specific _trait_ without a _type_ field, it will be considered a "generic" _trait_. It's important that these kind of _traits_ don't have any _values_ in common with other _traits_ inside their _options_ array.
 - Each _image_ string should have the relative path to a specific PNG image.
