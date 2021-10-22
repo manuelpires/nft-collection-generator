@@ -30,7 +30,7 @@ const createUniqueTokens = () => {
 
 const createUniqueTraitsCombination = () => {
   const traits = [];
-  traitsList.forEach(({ display, type, options }) => {
+  traitsList.forEach(({ display, type, options, ignore }) => {
     // Use only options that fulfill their allowed/forbidden conditions (if they have)
     const filteredOptions = filterOptionsByConditions(options, traits);
     // Randomly select a trait option
@@ -40,12 +40,14 @@ const createUniqueTraitsCombination = () => {
       traits.push({
         ...(type && { type }),
         ...(display && { display }),
+        ...(ignore && { ignore }),
         ...option,
       });
     }
   });
-
-  const traitsHash = hash(JSON.stringify(traits));
+  // Filter out traits that need to be ignored for uniqueness calculation,
+  // and then calculate the hash of the rest of the selected traits combination
+  const traitsHash = hash(traits.filter(({ ignore }) => !ignore));
   // Use recursion if the traits combination was already used
   if (uniqueCombinationsHashes.has(traitsHash)) {
     return createUniqueTraitsCombination();
@@ -88,7 +90,12 @@ const getRandomWeightedOption = (options) => {
   return options[index];
 };
 
-const hash = (msg) => crypto.createHash("sha256").update(msg).digest("hex");
+const hash = (object) => {
+  return crypto
+    .createHash("sha256")
+    .update(JSON.stringify(object))
+    .digest("hex");
+};
 
 const generateTokensFiles = async (tokens) => {
   directoryGuard(DEFAULT_METADATA_PATH);

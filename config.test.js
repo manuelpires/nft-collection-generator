@@ -205,4 +205,10 @@ describe("Traits list validation:", () => {
       });
     });
   });
+
+  it("each trait's 'ignore' setting (if present) should be boolean", () => {
+    traitsList.forEach(
+      ({ ignore }) => ignore && expect(ignore).to.be.a("boolean")
+    );
+  });
 });
