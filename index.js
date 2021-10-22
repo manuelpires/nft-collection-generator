@@ -22,6 +22,7 @@ const ctx = canvas.getContext("2d", { alpha: false });
 const uniqueCombinationsHashes = new Set();
 
 const createUniqueTokens = () => {
+  console.log("--> Creating unique tokens...");
   return Array.from(Array(TOTAL_TOKENS)).map((_, i) => ({
     tokenId: i,
     traits: createUniqueTraitsCombination(),
@@ -98,12 +99,17 @@ const hash = (object) => {
 };
 
 const generateTokensFiles = async (tokens) => {
+  console.log("\n--> Generating tokens files...");
   directoryGuard(DEFAULT_METADATA_PATH);
   directoryGuard(DEFAULT_IMAGES_PATH);
   for (let token of tokens) {
     await generateTokenMetadata(token);
     await generateTokenImage(token);
+    process.stdout.write(
+      `Current progress: ${Math.round((token.tokenId / TOTAL_TOKENS) * 100)}%\r`
+    );
   }
+  process.stdout.write(`Current progress: 100%\r`);
 };
 
 const directoryGuard = (directory) => {
@@ -123,7 +129,6 @@ const generateTokenMetadata = async ({ tokenId, traits }) => {
       value,
     })),
   };
-
   await writeFile(
     `${DEFAULT_METADATA_PATH}${tokenId}`,
     JSON.stringify(metadata, null, 2)
@@ -137,7 +142,6 @@ const generateTokenImage = async ({ tokenId, traits }) => {
       ctx.drawImage(layerImage, 0, 0);
     }
   }
-
   await writeFile(
     `${DEFAULT_IMAGES_PATH}${tokenId}.png`,
     canvas.toBuffer("image/png")
@@ -145,38 +149,45 @@ const generateTokenImage = async ({ tokenId, traits }) => {
 };
 
 const printStats = (tokens) => {
-  console.log(
-    "\nSUCCESS!",
-    `\n- images path: ${DEFAULT_IMAGES_PATH}`,
-    `\n- metadata path: ${DEFAULT_METADATA_PATH}`,
-    `\n\nTOTAL NUMBER OF TOKENS: ${tokens.length}`
-  );
+  console.log(`\nTOTAL NUMBER OF TOKENS: ${tokens.length}`);
   traitsList.forEach(({ type, options }) => {
+    // Calculate trait stats
     console.log(`\nTRAIT TYPE: ${type || "<generic-type>"}`);
-    options.forEach(({ value }) => {
-      if (value) {
-        const amount = tokens.filter(({ traits }) =>
-          traits.some(
+    const traitStats = options.map(({ value }) => {
+      const count = tokens.filter(({ traits }) => {
+        if (value) {
+          return traits.some(
             (trait) =>
               (type ? trait.type === type : true) && trait.value === value
-          )
-        ).length;
-        const percentage = ((amount / tokens.length) * 100).toFixed(2);
-        console.log(
-          `- there's ${amount} tokens with value ${value} (${percentage}% of total)`
-        );
-      }
+          );
+        }
+        return !traits.some((trait) => trait.type === type);
+      }).length;
+      const percentage = `${((count / tokens.length) * 100).toFixed(2)}%`;
+      return { value: value || "<none>", count, percentage };
     });
+    // Print stats table with traits sorted by rarity (desc)
+    console.table(
+      traitStats
+        .sort((a, b) => a.count - b.count)
+        .reduce(
+          (acc, { value, count, percentage }) => ({
+            ...acc,
+            [value]: { count, percentage },
+          }),
+          {}
+        )
+    );
   });
 };
 
 /** MAIN SCRIPT **/
 (async () => {
-  console.log("Generating unique tokens files. Please wait...");
   try {
     const tokens = createUniqueTokens();
-    await generateTokensFiles(tokens);
     printStats(tokens);
+    await generateTokensFiles(tokens);
+    console.log("\n\nSUCCESS!");
   } catch (err) {
     if (err instanceof RangeError) {
       console.log(
