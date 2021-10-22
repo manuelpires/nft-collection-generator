@@ -1,6 +1,5 @@
 const crypto = require("crypto");
-const mergeImages = require("merge-images");
-const { Image, Canvas } = require("canvas");
+const { createCanvas, loadImage } = require("canvas");
 const {
   rmdirSync,
   mkdirSync,
@@ -10,12 +9,16 @@ const {
   DEFAULT_IMAGES_PATH,
   DEFAULT_METADATA_PATH,
   IMAGES_BASE_URI,
+  IMAGES_HEIGHT,
+  IMAGES_WIDTH,
   TOKEN_NAME_PREFIX,
   TOKEN_DESCRIPTION,
   TOTAL_TOKENS,
   ORDERED_TRAITS_LIST: traitsList,
 } = require("./config");
 
+const canvas = createCanvas(IMAGES_WIDTH, IMAGES_HEIGHT);
+const ctx = canvas.getContext("2d", { alpha: false });
 const uniqueCombinationsHashes = new Set();
 
 const createUniqueTokens = () => {
@@ -87,11 +90,6 @@ const directoryGuard = (directory) => {
 };
 
 const generateTokenMetadata = async ({ tokenId, traits }) => {
-  const tokenMetadata = getMetadataFromToken({ tokenId, traits });
-  await writeFile(`${DEFAULT_METADATA_PATH}${tokenId}`, tokenMetadata);
-};
-
-const getMetadataFromToken = ({ tokenId, traits }) => {
   const metadata = {
     tokenId,
     name: `${TOKEN_NAME_PREFIX}${tokenId}`,
@@ -103,24 +101,25 @@ const getMetadataFromToken = ({ tokenId, traits }) => {
       value,
     })),
   };
-  return JSON.stringify(metadata, null, 2);
+
+  await writeFile(
+    `${DEFAULT_METADATA_PATH}${tokenId}`,
+    JSON.stringify(metadata, null, 2)
+  );
 };
 
 const generateTokenImage = async ({ tokenId, traits }) => {
-  const tokenImage = await getImageFromTraits(traits);
-  await writeFile(`${DEFAULT_IMAGES_PATH}${tokenId}.png`, tokenImage);
-};
+  for (let { image } of traits) {
+    if (image) {
+      const layerImage = await loadImage(image);
+      ctx.drawImage(layerImage, 0, 0);
+    }
+  }
 
-const getImageFromTraits = async (traits) => {
-  const b64 = await mergeImages(
-    traits.filter(({ image }) => image).map(({ image }) => image),
-    { Canvas, Image }
+  await writeFile(
+    `${DEFAULT_IMAGES_PATH}${tokenId}.png`,
+    canvas.toBuffer("image/png")
   );
-  const image = new Buffer.from(
-    b64.replace(/^data:image\/\w+;base64,/, ""),
-    "base64"
-  );
-  return image;
 };
 
 const printStats = (tokens) => {

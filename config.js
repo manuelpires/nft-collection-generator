@@ -5,6 +5,8 @@ config.DEFAULT_METADATA_PATH = "./metadata/";
 
 // UPDATE THESE CONSTANTS BELOW WITH YOUR VALUES
 config.IMAGES_BASE_URI = "https://base-uri-to-my-nft-images.com/";
+config.IMAGES_HEIGHT = 350;
+config.IMAGES_WIDTH = 350;
 config.TOKEN_NAME_PREFIX = "My NFT #";
 config.TOKEN_DESCRIPTION = "My NFT description.";
 config.TOTAL_TOKENS = 100;

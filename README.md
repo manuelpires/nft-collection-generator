@@ -64,6 +64,8 @@ These are the constants that you'd need to update in the `config.js` file:
 
 ```JS
 config.IMAGES_BASE_URI = "https://base-uri-to-my-nft-images.com/";
+config.IMAGES_HEIGHT = 350;
+config.IMAGES_WIDTH = 350;
 config.TOKEN_NAME_PREFIX = "My NFT #";
 config.TOKEN_DESCRIPTION = "My NFT description.";
 config.TOTAL_TOKENS = 100;
@@ -108,6 +110,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Manuel Pires - [manuelpires.eth](https://etherscan.io/address/0xa592b977b98697ed0269b645af1d09289fae8948) - manuelpiresok@gmail.com
+Manuel Pires - manuelpiresok@gmail.com
 
 Project Link: [https://github.com/manuelpires/nft-collection-generator](https://github.com/manuelpires/nft-collection-generator)
