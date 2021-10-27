@@ -4,9 +4,10 @@
   "description": "Generates images and metadata for a collection of NFTs.",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "build": "node .",
-    "test": "mocha *.test.js"
+    "start": "node index.js",
+    "build": "node index.js",
+    "test": "mocha *.test.js",
+    "update-base-uri": "node update-base-uri.js"
   },
   "repository": {
     "type": "git",
