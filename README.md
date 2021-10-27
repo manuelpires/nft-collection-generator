@@ -52,6 +52,16 @@ This will execute the main script. If successful, it will:
 - Generate a folder with all the tokens images
 - Generate a folder with all the tokens metadata files
 
+### Update Images Base URI
+
+After running the project, you can update the images base URI inside all generated metadata files by running:
+
+```sh
+npm run update-base-uri
+```
+
+This will take the current value of `IMAGES_BASE_URI` inside `config.js` and use it to update all metadata files.
+
 ## Create Your Own Collection
 
 To create your own collection of unique tokens, you'd have to edit only the `config.js` file and update the image layers in the `traits` folder.
