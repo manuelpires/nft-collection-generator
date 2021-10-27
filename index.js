@@ -1,10 +1,6 @@
 const crypto = require("crypto");
 const { createCanvas, loadImage } = require("canvas");
-const {
-  rmdirSync,
-  mkdirSync,
-  promises: { writeFile },
-} = require("fs");
+const { rmdirSync, mkdirSync, writeFileSync } = require("fs");
 const {
   DEFAULT_IMAGES_PATH,
   DEFAULT_METADATA_PATH,
@@ -103,7 +99,7 @@ const generateTokensFiles = async (tokens) => {
   directoryGuard(DEFAULT_METADATA_PATH);
   directoryGuard(DEFAULT_IMAGES_PATH);
   for (let token of tokens) {
-    await generateTokenMetadata(token);
+    generateTokenMetadata(token);
     await generateTokenImage(token);
     process.stdout.write(
       `Current progress: ${Math.round((token.tokenId / TOTAL_TOKENS) * 100)}%\r`
@@ -117,7 +113,7 @@ const directoryGuard = (directory) => {
   mkdirSync(directory, { recursive: true });
 };
 
-const generateTokenMetadata = async ({ tokenId, traits }) => {
+const generateTokenMetadata = ({ tokenId, traits }) => {
   const metadata = {
     tokenId,
     name: `${TOKEN_NAME_PREFIX}${tokenId}`,
@@ -129,7 +125,7 @@ const generateTokenMetadata = async ({ tokenId, traits }) => {
       value,
     })),
   };
-  await writeFile(
+  writeFileSync(
     `${DEFAULT_METADATA_PATH}${tokenId}`,
     JSON.stringify(metadata, null, 2)
   );
@@ -142,7 +138,7 @@ const generateTokenImage = async ({ tokenId, traits }) => {
       ctx.drawImage(layerImage, 0, 0);
     }
   }
-  await writeFile(
+  writeFileSync(
     `${DEFAULT_IMAGES_PATH}${tokenId}.png`,
     canvas.toBuffer("image/png")
   );
