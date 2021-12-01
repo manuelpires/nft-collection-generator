@@ -52,7 +52,9 @@ This will execute the main script. If successful, it will:
 - Generate a folder with all the tokens images
 - Generate a folder with all the tokens metadata files
 
-### Update Images Base URI
+### Other scripts
+
+#### Update images base URI
 
 After running the project, you can update the images base URI inside all generated metadata files by running:
 
@@ -61,6 +63,22 @@ npm run update-base-uri
 ```
 
 This will take the current value of `IMAGES_BASE_URI` inside `config.js` and use it to update all metadata files.
+
+#### Create GIF with images
+
+After running the project, you can create a GIF using the generated images:
+
+```sh
+npm run create-gif
+```
+
+#### Calculate hash of images and provenance hash
+
+After running the project, you can launch the following script to calculate the SHA-256 of every image generated, and also a provenance hash of the combination of all hashes:
+
+```sh
+npm run calculate-hash
+```
 
 ## Create Your Own Collection
 
