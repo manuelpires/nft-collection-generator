@@ -3,7 +3,7 @@ const {
   DEFAULT_METADATA_PATH,
   IMAGES_BASE_URI,
   TOTAL_TOKENS,
-} = require("./config");
+} = require("../config");
 
 /** UPDATE BASE URI SCRIPT **/
 (() => {
@@ -11,7 +11,7 @@ const {
     const data = readFileSync(`${DEFAULT_METADATA_PATH}${tokenId}`);
     const json = {
       ...JSON.parse(data),
-      image: `${IMAGES_BASE_URI}${tokenId}`,
+      image: `${IMAGES_BASE_URI}${tokenId}.png`,
     };
     writeFileSync(
       `${DEFAULT_METADATA_PATH}${tokenId}`,

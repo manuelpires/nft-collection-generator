@@ -4,6 +4,7 @@ config.DEFAULT_IMAGES_PATH = "./images/";
 config.DEFAULT_METADATA_PATH = "./metadata/";
 
 // UPDATE THESE CONSTANTS BELOW WITH YOUR VALUES
+config.GIF_FRAMES = 10;
 config.IMAGES_BASE_URI = "https://base-uri-to-my-nft-images.com/";
 config.IMAGES_HEIGHT = 350;
 config.IMAGES_WIDTH = 350;
