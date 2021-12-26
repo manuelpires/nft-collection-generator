@@ -120,7 +120,7 @@ Each _trait_ has the following structure:
 }
 ```
 
-Before modifying the _traits_ list, please go through the next important considerations:
+Before modifying the _traits_ list, please go through the next important instructions:
 
 - For every _trait_ in the list, each generated token will get **one** randomly selected _option_ (_value_ & _image_) from the _options_ list. Except if the randomly selected _option_ turns out to have a non-existent _value_, in which case the token won't get **anything** from that specific _trait_.
 - The order of the list **is important!** It will define the order in which the images should be merged on top of each other to create the final token image. Tipically, the background _trait_ should be the first in the array.
