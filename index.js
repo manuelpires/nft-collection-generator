@@ -100,7 +100,7 @@ const generateTokensFiles = async (tokens) => {
   directoryGuard(DEFAULT_IMAGES_PATH);
   for (let token of tokens) {
     generateTokenMetadata(token);
-    await generateTokenImage(token);
+    await  generateTokenImage(token);
     process.stdout.write(
       `Current progress: ${Math.round((token.tokenId / TOTAL_TOKENS) * 100)}%\r`
     );
@@ -132,6 +132,7 @@ const generateTokenMetadata = ({ tokenId, traits }) => {
 };
 
 const generateTokenImage = async ({ tokenId, traits }) => {
+  ctx.clearRect(0,0,canvas.width,canvas.height)
   for (let { image } of traits) {
     if (image) {
       const layerImage = await loadImage(image);
