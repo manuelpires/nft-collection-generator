@@ -132,7 +132,7 @@ const generateTokenMetadata = ({ tokenId, traits }) => {
 };
 
 const generateTokenImage = async ({ tokenId, traits }) => {
-  ctx.clearRect(0,0,canvas.width,canvas.height)
+  ctx.clearRect(0, 0, canvas.width,canvas.height)
   for (let { image } of traits) {
     if (image) {
       const layerImage = await loadImage(image);
