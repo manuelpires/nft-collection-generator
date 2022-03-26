@@ -72,12 +72,12 @@ After running the project, you can create a GIF using the generated images:
 npm run create-gif
 ```
 
-#### Calculate hash of images and provenance hash
+#### Calculate hashes of images
 
-After running the project, you can launch the following script to calculate the SHA-256 of every image generated, and also a provenance hash of the combination of all hashes:
+After running the project, you can launch the following script to calculate the SHA-256 of every image generated and write them in JSON files:
 
 ```sh
-npm run calculate-hash
+npm run calculate-hashes
 ```
 
 ## Create Your Own Collection

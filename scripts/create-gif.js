@@ -48,6 +48,6 @@ const usedTokenIds = new Set();
   writeFileSync("preview.gif", buffer);
 
   console.log(
-    `Created GIF at ./preview.gif width tokenIds: ${tokenIds.join(" ")}`
+    `SUCCESS! Created GIF at ./preview.gif width tokenIds: ${tokenIds.join(" ")}`
   );
 })();

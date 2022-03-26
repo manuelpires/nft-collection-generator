@@ -1,6 +1,6 @@
 {
   "name": "nft-collection-generator",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Generates images and metadata for a collection of NFTs.",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "mocha *.test.js",
     "update-base-uri": "node scripts/update-base-uri.js",
     "create-gif": "node scripts/create-gif.js",
-    "calculate-hash": "node scripts/calculate-hash.js"
+    "calculate-hashes": "node scripts/calculate-hashes.js"
   },
   "repository": {
     "type": "git",

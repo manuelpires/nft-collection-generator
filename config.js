@@ -2,6 +2,7 @@ const config = {};
 
 config.DEFAULT_IMAGES_PATH = "./images/";
 config.DEFAULT_METADATA_PATH = "./metadata/";
+config.DEFAULT_HASHES_PATH = "./hashes/";
 
 // UPDATE THESE CONSTANTS BELOW WITH YOUR VALUES
 config.GIF_FRAMES = 10;
