@@ -74,7 +74,7 @@ npm run create-gif
 
 #### Calculate hashes of images
 
-After running the project, you can launch the following script to calculate the SHA-256 of every image generated and write them in JSON files:
+After running the project, you can launch the following script to calculate the SHA-256 hash of every image generated and also print the final provenance hash of all of them:
 
 ```sh
 npm run calculate-hashes
