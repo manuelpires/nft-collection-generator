@@ -33,7 +33,7 @@ const createUniqueTraitsCombination = () => {
     // Randomly select a trait option
     const option = getRandomWeightedOption(filteredOptions);
     // Push selected trait option (if it has a defined value)
-    if (option.value) {
+    if (option !== undefined && option.value) {
       traits.push({
         ...(type && { type }),
         ...(display && { display }),
