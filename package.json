@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "build": "node index.js",
+    "build-dir": "node scripts/build-dir.mjs",
     "test": "mocha *.test.js",
     "update-base-uri": "node scripts/update-base-uri.js",
     "create-gif": "node scripts/create-gif.js",
