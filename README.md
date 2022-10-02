@@ -33,13 +33,12 @@ There's an example configuration in the `config.js` file, and there's also some 
 Using the automated JSON building script, you can scaffold your JSON file(s) for tweaking in no time at all.
 See ./scripts/build-dir for information on how to use this tool, made by Robbie Bertram of Bertram Technologies.
 
-Try it out with the default config by running
+Try it out with the default config
 ```sh
 npm run build-dir
-'''
+```
 
 ### Test the configuration
-
 Test the current configuration in the `config.js` file
 
 ```sh
