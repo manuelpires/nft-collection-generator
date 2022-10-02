@@ -28,6 +28,16 @@ This is a simple Node.js project that uses a list of pre-configured traits and i
 
 There's an example configuration in the `config.js` file, and there's also some pre-defined image layers in the `traits` folder. You can test and run this project with that pre-existing configuration to see first how everything works and to see the results.
 
+### Build your JSON
+
+Using the automated JSON building script, you can scaffold your JSON file(s) for tweaking in no time at all.
+See ./scripts/build-dir for information on how to use this tool, made by Robbie Bertram of Bertram Technologies.
+
+Try it out with the default config by running
+'''sh
+npm run build-dir
+'''
+
 ### Test the configuration
 
 Test the current configuration in the `config.js` file
