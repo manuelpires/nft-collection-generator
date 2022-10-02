@@ -34,7 +34,7 @@ Using the automated JSON building script, you can scaffold your JSON file(s) for
 See ./scripts/build-dir for information on how to use this tool, made by Robbie Bertram of Bertram Technologies.
 
 Try it out with the default config by running
-'''sh
+```sh
 npm run build-dir
 '''
 
