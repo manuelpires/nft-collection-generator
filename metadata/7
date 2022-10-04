@@ -1,0 +1,20 @@
+{
+  "tokenId": 7,
+  "name": "My NFT #7",
+  "description": "My NFT description.",
+  "image": "https://base-uri-to-my-nft-images.com/7.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "robin.png"
+    },
+    {
+      "trait_type": "Square",
+      "value": "liliac.png"
+    },
+    {
+      "trait_type": "Triangle",
+      "value": "teal.png"
+    }
+  ]
+}

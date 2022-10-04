@@ -1,0 +1,20 @@
+{
+  "tokenId": 8,
+  "name": "My NFT #8",
+  "description": "My NFT description.",
+  "image": "https://base-uri-to-my-nft-images.com/8.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "mint.png"
+    },
+    {
+      "trait_type": "Square",
+      "value": "pumpkin.png"
+    },
+    {
+      "trait_type": "Triangle",
+      "value": "orchid.png"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "tokenId": 1,
+  "name": "My NFT #1",
+  "description": "My NFT description.",
+  "image": "https://base-uri-to-my-nft-images.com/1.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "mint.png"
+    },
+    {
+      "trait_type": "Square",
+      "value": "bright-coral.png"
+    },
+    {
+      "trait_type": "Triangle",
+      "value": "orchid.png"
+    }
+  ]
+}

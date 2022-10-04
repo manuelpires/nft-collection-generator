@@ -33,7 +33,7 @@ There's an example configuration in the `config.js` file, and there's also some 
 Using the automated JSON building script, you can scaffold your JSON file(s) for tweaking in no time at all.
 See ./scripts/build-dir for information on how to use this tool, made by Robbie Bertram of Bertram Technologies.
 
-Try it out with the default config
+The default Traits.json file in ./traits-generated has already been created for you, but if you would like to customize or experiment, try running build-dir with the default config
 ```sh
 npm run build-dir
 ```
