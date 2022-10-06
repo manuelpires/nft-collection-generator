@@ -1,9 +1,11 @@
-import { readdirSync, writeFileSync, appendFileSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
+import { appendFileSync, readdirSync } from 'node:fs';
+import { addTrait, objects } from "./libs/build-dir.mjs";
     
     /*
-      use npm run build-dir to build your JSON file
+      Use npm run build-dir to build your JSON file
       
+      Most of the functionality is hidden, but feel free to tweak this tool's config file at ./libs/build-dr to your liking
+
       I'm Robbie, and I made this JSON generation tool to save myself time. I hope you
       get some use out of it. Contact me at rbertram@bertramtechnologies.com for any questions, comments or suggestions.
 
@@ -30,40 +32,26 @@ import { readFile } from 'node:fs/promises';
 
     */
 
-    function obj(arg)
-    {
-      this.type = arg;
-      this.options = [];
-    }
-    const traitsPath = "./traits/";
-    const breed = "Shapes";
-    var objects = []; 
-    
-    function addTrait(type, path, breed, restrictions)
-    {
-      var images = readdirSync(traitsPath + path);
-      var standardObject = new obj(type);
-
-      for(var i = 0; i < images.length; i++)
-      {
-          standardObject.options.push({
-            forbidden:restrictions,
-            image:traitsPath + path + "/" + images[i],
-            value:images[i],
-              weight:1,
-            });
-      }
-
-          objects.push(standardObject);
-        }
+   const traitsPath = "./traits/";
+   const breed = "Shapes";
       
       // addTrait is called, creating the pushing the objects to the objects array
-      addTrait("Background", "background", breed, null);
-      addTrait("Square", "square", breed, null);
-      addTrait("Triangle", "triangle", breed, null);
-
+      addTrait("Background", "background", breed, 
+      [
+        // in this top-level array, you can put any number of readdirSync statements if you are forbidding entire directories
+        [
+          // in this sub-level array, you can put any number of individual additional forbidden images
+          // these arrays can be used independently of each-other; one or both can be empty, or you may omit them entirely
+          // but do not use null
+        ]
+      ]);
+      addTrait("Square", "square", breed);
+      addTrait("Triangle", "triangle", breed);
+      
       // the objects are processed and stringified for JSON generation
-      objects = JSON.stringify(objects, null, 4 );
+      var writable = JSON.stringify(objects, null, 4 );
       
       // the objects are finally written to a file you may specify, here it is just ./traits-generated/Traits.json
-      appendFileSync(("./traits-generated/Traits.json"), (objects));
+      appendFileSync(("./traits-generated/Traits.json"), (writable));
+
+      export { traitsPath, breed };
