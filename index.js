@@ -1,9 +1,12 @@
+import('node:fs');
+
 const crypto = require("crypto");
 const { createCanvas, loadImage } = require("canvas");
 const { rmdirSync, mkdirSync, writeFileSync } = require("fs");
 const {
   DEFAULT_IMAGES_PATH,
   DEFAULT_METADATA_PATH,
+  DEFAULT_HASHES_PATH,
   IMAGES_BASE_URI,
   IMAGES_HEIGHT,
   IMAGES_WIDTH,
@@ -12,6 +15,7 @@ const {
   TOTAL_TOKENS,
   ORDERED_TRAITS_LIST: traitsList,
 } = require("./config");
+const { existsSync } = require('node:fs');
 
 const canvas = createCanvas(IMAGES_WIDTH, IMAGES_HEIGHT);
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -94,10 +98,20 @@ const hash = (object) => {
     .digest("hex");
 };
 
+const directoryGuard = (directory) => {
+  if(existsSync(directory) == true)
+  {
+    rmdirSync(directory, { recursive: true });
+  }
+  mkdirSync(directory, { recursive: true });
+};
+
 const generateTokensFiles = async (tokens) => {
   console.log("\n--> Generating tokens files...");
   directoryGuard(DEFAULT_METADATA_PATH);
   directoryGuard(DEFAULT_IMAGES_PATH);
+  directoryGuard(DEFAULT_HASHES_PATH);
+
   for (let token of tokens) {
     generateTokenMetadata(token);
     await generateTokenImage(token);
@@ -106,11 +120,6 @@ const generateTokensFiles = async (tokens) => {
     );
   }
   process.stdout.write(`Current progress: 100%\r`);
-};
-
-const directoryGuard = (directory) => {
-  rmdirSync(directory, { recursive: true });
-  mkdirSync(directory, { recursive: true });
 };
 
 const generateTokenMetadata = ({ tokenId, traits }) => {
