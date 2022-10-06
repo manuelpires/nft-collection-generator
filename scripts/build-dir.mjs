@@ -1,5 +1,5 @@
 import { appendFileSync, readdirSync } from 'node:fs';
-import { addTrait, objects } from "./libs/build-dir.mjs";
+import { addTrait, objects } from "./libs/build-dir-config.mjs";
     
     /*
       Use npm run build-dir to build your JSON file
@@ -13,23 +13,19 @@ import { addTrait, objects } from "./libs/build-dir.mjs";
       
       traitsPath is the base path to your traits, you should not need to change this if you place your traits in this dir
       
-      breed is the type of NFT you are creating, IE a type of animal, a shape, or any type of descriptor that fits
-      
-      the objects array holds the objects created during the JSON generation process, and writes them out to a file
-      when the preparation is done
+      call addTrait when you are ready to generate a trait; the params are as follows:
 
-      call addTrait when you are ready to generate a trait, the params for addTrait are as follows:
+      function addTrait(type, path, breed, [restrictions])
 
       type is the type of trait you are generating, IE a background, overlay, underlay and so on
 
       path is the path to the directory that contains the images for that particular trait
 
-      breed as mentioned before is type of NFT you are creating
-
-      restrictions is an array of strings, each string you enter into this param of addTraits should correspond to the value,
+      restrictions is an optional array of arrays containing strings, each string you enter into this param of addTraits should correspond to the value,
       which will be the file name, of the file you are forbidding the trait in question to be used with; you may also
       change this forbidden to allow when your JSON is generated depending on your rules requirements
-
+      
+      breed is the type of NFT you are creating, IE a type of animal, a shape, or any type of descriptor that fits
     */
 
    const traitsPath = "./traits/";
