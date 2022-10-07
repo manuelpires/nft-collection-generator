@@ -15,6 +15,8 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
       
       jsonPath is the base path to where you want your JSON generated
 
+      traitsFile is the name you want for your generated JSON file; you do not need to enter the file suffix, it will be appended for you
+
       call addTrait when you are ready to generate a trait; the params are as follows:
 
       function addTrait(type, path, breed, [restrictions])
@@ -33,6 +35,9 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
    const traitsPath = "./traits/";
    const jsonPath = "./traits-json/";
    const breed = "Shapes";
+   var traitsFile = "Traits";
+   
+   traitsFile += ".json";
       
       // addTrait is called, creating the pushing the objects to the objects array
       addTrait("Background", "background", breed, 
@@ -56,6 +61,8 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
       }
 
       // the objects are finally written to a file you may specify, here it is just ./traits-generated/Traits.json
-      appendFileSync((jsonPath + "Traits.json"), (writable));
+      appendFileSync((jsonPath + traitsFile), (writable));
+
+      console.log("Output successfully written to " + jsonPath + traitsFile);
 
       export { traitsPath, breed };

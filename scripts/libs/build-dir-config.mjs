@@ -23,7 +23,6 @@ function buildRestrictions(args = null)
       }
     }
   }
-  console.log(newArray)
   return newArray;
 }
 
@@ -44,8 +43,8 @@ function addTrait(type, path, breed, restrictions)
           weight:1,
         });
   }
-
       objects.push(standardObject);
+      console.log("Generated " + standardObject.type + " successfully...");
       return objects;
     }
 
