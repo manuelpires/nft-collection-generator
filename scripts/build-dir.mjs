@@ -1,4 +1,4 @@
-import { appendFileSync, readdirSync } from 'node:fs';
+import { appendFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
 import { addTrait, objects } from "./libs/build-dir-config.mjs";
     
     /*
@@ -13,6 +13,8 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
       
       traitsPath is the base path to your traits, you should not need to change this if you place your traits in this dir
       
+      jsonPath is the base path to where you want your JSON generated
+
       call addTrait when you are ready to generate a trait; the params are as follows:
 
       function addTrait(type, path, breed, [restrictions])
@@ -29,6 +31,7 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
     */
 
    const traitsPath = "./traits/";
+   const jsonPath = "./traits-json/";
    const breed = "Shapes";
       
       // addTrait is called, creating the pushing the objects to the objects array
@@ -47,7 +50,12 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
       // the objects are processed and stringified for JSON generation
       var writable = JSON.stringify(objects, null, 4 );
       
+      if(existsSync(jsonPath) != true)
+      {
+        mkdirSync(jsonPath);
+      }
+
       // the objects are finally written to a file you may specify, here it is just ./traits-generated/Traits.json
-      appendFileSync(("./traits-generated/Traits.json"), (writable));
+      appendFileSync((jsonPath + "Traits.json"), (writable));
 
       export { traitsPath, breed };

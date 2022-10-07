@@ -1,6 +1,6 @@
 const config = {};
 // UPDATE TRAITSLIST TO REFLECT WHERE YOU ARE STORING YOUR GENERATED JSON
-const traitsList = require("./traits-generated/Traits");
+const traitsList = require("./traits-json/Traits");
 
 config.DEFAULT_IMAGES_PATH = "./images/";
 config.DEFAULT_METADATA_PATH = "./metadata/";
