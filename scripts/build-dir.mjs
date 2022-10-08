@@ -1,4 +1,4 @@
-import { appendFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
 import { addTrait, objects } from "./libs/build-dir-config.mjs";
     
     /*
@@ -61,7 +61,7 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
       }
 
       // the objects are finally written to a file you may specify, here it is just ./traits-generated/Traits.json
-      appendFileSync((jsonPath + traitsFile), (writable));
+      writeFileSync((jsonPath + traitsFile), (writable));
 
       console.log("Output successfully written to " + jsonPath + traitsFile);
 
