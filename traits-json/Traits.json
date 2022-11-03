@@ -1,0 +1,95 @@
+[
+    {
+        "type": "Background",
+        "options": [
+            {
+                "forbidden": [],
+                "image": "./traits/background/baby-purple.png",
+                "value": "baby-purple.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/background/butter.png",
+                "value": "butter.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/background/coral.png",
+                "value": "coral.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/background/mint.png",
+                "value": "mint.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/background/robin.png",
+                "value": "robin.png",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "type": "Square",
+        "options": [
+            {
+                "forbidden": [],
+                "image": "./traits/square/bright-coral.png",
+                "value": "bright-coral.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/square/liliac.png",
+                "value": "liliac.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/square/pumpkin.png",
+                "value": "pumpkin.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/square/spring.png",
+                "value": "spring.png",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "type": "Triangle",
+        "options": [
+            {
+                "forbidden": [],
+                "image": "./traits/triangle/brick.png",
+                "value": "brick.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/triangle/green.png",
+                "value": "green.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/triangle/orchid.png",
+                "value": "orchid.png",
+                "weight": 1
+            },
+            {
+                "forbidden": [],
+                "image": "./traits/triangle/teal.png",
+                "value": "teal.png",
+                "weight": 1
+            }
+        ]
+    }
+]
