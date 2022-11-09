@@ -40,12 +40,20 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
    traitsFile += ".json";
       
       // addTrait is called, creating the pushing the objects to the objects array
-      addTrait("Background", "background", breed, [ 
-        // multi forbidden array such that: path/to/exampleForbiddenFolder
-      ],
-      [
-        // single file forbidden array such that: exampleForbiddenSingleTrait.*
-      ]
+      addTrait("Background", "background", breed,
+      // the restrictions object contains multi and single members
+      // multi contains strings representing the name of or path to the top-level folder in the
+      // directory(ies) you want to forbid for the given trait
+      // single contains strings representing the name of or path to a single image you want to
+      // forbid; you may include multiple comma-separated entries in each array
+      {
+        multi:[
+          // path/to/example/forbidden/folder(s)
+        ],
+        single:[
+          // exampleForbiddenTrait.*
+        ],
+      }
       );
       addTrait("Square", "square", breed);
       addTrait("Triangle", "triangle", breed);
