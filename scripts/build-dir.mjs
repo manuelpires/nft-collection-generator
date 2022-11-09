@@ -40,15 +40,13 @@ import { addTrait, objects } from "./libs/build-dir-config.mjs";
    traitsFile += ".json";
       
       // addTrait is called, creating the pushing the objects to the objects array
-      addTrait("Background", "background", breed, 
+      addTrait("Background", "background", breed, [ 
+        // multi forbidden array such that: path/to/exampleForbiddenFolder
+      ],
       [
-        // in this top-level array, you can put any number of readdirSync statements if you are forbidding entire directories
-        [
-          // in this sub-level array, you can put any number of individual additional forbidden images
-          // these arrays can be used independently of each-other; one or both can be empty, or you may omit them entirely
-          // but do not use null
-        ]
-      ]);
+        // single file forbidden array such that: exampleForbiddenSingleTrait.*
+      ]
+      );
       addTrait("Square", "square", breed);
       addTrait("Triangle", "triangle", breed);
       

@@ -2,7 +2,9 @@ import { readdirSync, writeFileSync, Dirent, fstat } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { breed, traitsPath } from "../build-dir.mjs";
 
+let newArray = [];
 var objects = []; 
+var e = 0;
 
 function obj(arg)
 {
@@ -10,25 +12,46 @@ function obj(arg)
   this.options = [];
 }
 
-function buildRestrictions(args = null)
+function buildRestrictions(args = { single:null, multi:null }, path = null)
 {
-  var newArray = [];
-  if(args != null)
+  if(args.multi != null)
   {
-    for(var i = 0; i < args.length; i++)
+    for(var arg of args.multi)
     {
-      for(var s = 0; s < args[i].length; s++)
-      {  
-        newArray.push(args[i][s]);
+      var argPath = traitsPath + arg;
+      
+          var newArgs = readdirSync(argPath, {withFileTypes:true });
+          
+          for(var newArg of newArgs)
+          {
+            if(newArg.isDirectory(newArg) == true)
+            {
+              var subArgs = arg + "/" + newArg.name;
+              buildRestrictions([subArgs], path);
+            }
+            else if(newArg.isDirectory(newArg) != true)
+            {
+              console.log(newArg.name + " [ " + e++ + " ] ");
+              newArray.push(newArg.name);
+            }
+          }
+        }
+    }
+    if(args.single != null)
+    {
+      for(var arg of args.single)
+      {
+        console.log(arg);
+        newArray.push(arg);
       }
     }
-  }
   return newArray;
 }
 
 function generateObjects(type, path, restrictions, images)
 {
   var standardObject = new obj(type);
+  var restrictions = buildRestrictions(restrictions, path)
   for(var i = 0; i < images.length; i++)
   {
       standardObject.options.push({
@@ -44,7 +67,7 @@ function generateObjects(type, path, restrictions, images)
 function pushObjects(standardObject)
 {
   objects.push(standardObject);
-  return console.log("Generated " + standardObject.type + " successfully...");
+  //return console.log("Generated " + standardObject.type + " successfully...");
 }
 
 function ifDir(dir, path, type, restrictions)
@@ -53,6 +76,8 @@ function ifDir(dir, path, type, restrictions)
   var filterImages = [];
   path += "/";
   path += dir;
+  type += "/";
+  type += dir;
   for(var i = 0; i < images.length; i++)
   {
     if(images[i].isDirectory == true)
@@ -70,8 +95,8 @@ function ifDir(dir, path, type, restrictions)
 function addTrait(type, path, breed, restrictions)
 {
   var images = readdirSync(traitsPath + path, { withFileTypes:true });
-  var restrictions = buildRestrictions(restrictions)
   var filterImages = [];
+
   for(var i = 0; i < images.length; i++)
   {
     if(images[i].isDirectory() == true)
