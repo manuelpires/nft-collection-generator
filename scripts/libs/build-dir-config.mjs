@@ -31,7 +31,6 @@ function buildRestrictions(args = { single:null, multi:null }, path = null)
             }
             else if(newArg.isDirectory(newArg) != true)
             {
-              console.log(newArg.name + " [ " + e++ + " ] ");
               newArray.push(newArg.name);
             }
           }
@@ -41,7 +40,6 @@ function buildRestrictions(args = { single:null, multi:null }, path = null)
     {
       for(var arg of args.single)
       {
-        console.log(arg);
         newArray.push(arg);
       }
     }
@@ -67,7 +65,7 @@ function generateObjects(type, path, restrictions, images)
 function pushObjects(standardObject)
 {
   objects.push(standardObject);
-  //return console.log("Generated " + standardObject.type + " successfully...");
+  return console.log("Generated " + standardObject.type + " successfully...");
 }
 
 function ifDir(dir, path, type, restrictions)
