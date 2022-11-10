@@ -27,24 +27,26 @@ function buildRestrictions(args = { single:null, multi:null }, path = null)
             if(newArg.isDirectory(newArg) == true)
             {
               var subArgs = arg + "/" + newArg.name;
-              buildRestrictions([subArgs], path);
+              buildRestrictions({ multi:[subArgs] }, path);
             }
             else if(newArg.isDirectory(newArg) != true)
             {
+              console.log(newArg.name)
               newArray.push(newArg.name);
             }
           }
         }
-    }
-    if(args.single != null)
-    {
-      for(var arg of args.single)
-      {
-        newArray.push(arg);
       }
-    }
-  return newArray;
-}
+      if(args.single != null)
+      {
+        for(var arg of args.single)
+        {
+          newArray.push(arg);
+        }
+      }
+    
+    return newArray;
+  }
 
 function generateObjects(type, path, restrictions, images)
 {
