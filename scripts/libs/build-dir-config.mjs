@@ -4,7 +4,6 @@ import { breed, traitsPath } from "../build-dir.mjs";
 
 let newArray = [];
 var objects = []; 
-var e = 0;
 
 function obj(arg)
 {
@@ -31,7 +30,6 @@ function buildRestrictions(args = { single:null, multi:null }, path = null)
             }
             else if(newArg.isDirectory(newArg) != true)
             {
-              console.log(newArg.name)
               newArray.push(newArg.name);
             }
           }
@@ -44,24 +42,39 @@ function buildRestrictions(args = { single:null, multi:null }, path = null)
           newArray.push(arg);
         }
       }
-    
     return newArray;
   }
 
 function generateObjects(type, path, restrictions, images)
 {
+  
   var standardObject = new obj(type);
-  var restrictions = buildRestrictions(restrictions, path)
-  for(var i = 0; i < images.length; i++)
+  
+  // push a dummy image to be used when a future trait forbidden by the current one needs to be generated further down the line
+  pushDummy(type, path, standardObject);
+
+  for(var image of images)
   {
       standardObject.options.push({
       forbidden:restrictions,
-      image:traitsPath + path + "/" + images[i],
-      value:images[i],
-        weight:1,
-      });
+      image:traitsPath + path + "/" + image,
+      value:image,
+      weight:1,
+    });
   }
+
   pushObjects(standardObject);
+}
+// ccrtfunction pushDummy(type, path, standardObject, restrictions)
+{
+  standardObject.options.push({
+    forbidden:null,
+    image:traitsPath + "dummy.png",
+    value:type + "Dummy.png",
+      weight:1,
+    });
+
+    return standardObject;
 }
 
 function pushObjects(standardObject)
@@ -97,6 +110,10 @@ function addTrait(type, path, breed, restrictions)
   var images = readdirSync(traitsPath + path, { withFileTypes:true });
   var filterImages = [];
 
+  if(restrictions != null)
+  {
+    var restrictions = buildRestrictions(restrictions, path);
+  }
   for(var i = 0; i < images.length; i++)
   {
     if(images[i].isDirectory() == true)
