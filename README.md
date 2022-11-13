@@ -38,6 +38,10 @@ The default Traits.json file in ./traits-generated has already been created for 
 npm run build-dir
 ```
 
+### About the JSON builder
+
+For each created object a default dummy entry is created; you can create your own dummy (blank) png image smaller than or equal to the dimensions of your generated final images for use when you don't want a certain type of trait to appear, for example if traits later down the line are forbidden with every element in that trait, your dummy element can make way for other traits to appear further in the traits chain
+
 ### Test the configuration
 Test the current configuration in the `config.js` file
 
